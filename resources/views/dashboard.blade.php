@@ -19,8 +19,8 @@
                     </a>
                     @if(auth()->user()->id == $vote->user_id)
                         <div class="row" style='margin-left:0;'>
-                            <a href="{{ route('voteRename', ['id' => $vote->id]) }}" class="btn btn-warning col-md-2">Edit</a>
-                            <a href="#" class="btn btn-danger col-md-2" onclick="onConfirm({{$vote->id}});">Delete</a>
+                            <a href="{{ route('voteRename', ['id' => $vote->id]) }}" class="btn btn-warning col-3">Edit</a>
+                            <a href="#" class="btn btn-danger col-3" onclick="onConfirm({{$vote->id}});">Delete</a>
                         </div>
                         
                     @endif
