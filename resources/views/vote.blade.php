@@ -20,7 +20,7 @@
                     
                         @if(!array_key_exists($k, $voted)) <!-- Check if already voted -->
                             <section class="question">
-                                <form action="/makechoise" method="POST">
+                                <form action="{{route('makeChoice')}}" method="POST">
                                     <h3>{{$svotei->title}} <?php echo $svotei->active==0?'(Vote closed)': ''; ?></h3>
                                     <div class="form-group row">
                                         <span type="text" class="col-6 offset-md-3 badge badge-pill badge-default" id="question_help_text" name="question_help_text" placeholder="Description">{{$svotei->description}}</span>
@@ -69,8 +69,8 @@
                             </section>
                         @else
                             <section class="question">
-                                <form action="/revote" method="POST">
-                                    <h3>{{$svotei->title}}</h3>
+                                <form action="{{route('revote')}}" method="POST">
+                                    <h3>{{$svotei->title}} <?php echo $svotei->active==0?'(Vote closed)': ''; ?> </h3>
                                     <div class="form-group row">
                                         <span type="text" class="col-6 offset-md-3 badge badge-pill badge-default" id="question_help_text" name="question_help_text" placeholder="Description">{{$svotei->description}}</span>
                                     </div>
@@ -102,8 +102,8 @@
                         @endif
 
                         @if(auth()->user()->id == $vote->user_id)
-                            <a href="/vote/{{$svotei->id}}/edit" class="btn btn-warning">Edit</a>
-                            <a href="/activate/{{$svotei->id}}" class="btn btn-info">
+                            <a href="{{ route('voteEdit', ['id' => $svotei->id]) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('activate', ['id' => $svotei->id]) }}" class="btn btn-info">
                                 @if($svotei->active == 1)
                                     Deactivate
                                 @else
@@ -116,7 +116,7 @@
             @endif
             <hr>
             @if(auth()->user()->id == $vote->user_id)
-                <a href="/vote/{{$vote->id}}/stats" class="btn btn-primary">View Stats</a>
+                <a href="{{ route('voteStats', ['id' => $vote->id]) }}" class="btn btn-primary">View Stats</a>
             @endif
 
             

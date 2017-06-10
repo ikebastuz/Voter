@@ -11,17 +11,17 @@
                 <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
             @else
                 <li class="nav-item active">
-                    <a class="nav-link" href="/dashboard">Dashboard<span class="sr-only"></span></a>
+                    <a class="nav-link" href="{{ route('dashboard') }}">Dashboard<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/votelist">Public Votes<span class="sr-only"></span></a>
+                    <a class="nav-link" href="{{ route('votelist') }}">Public Votes<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/createvote">Create Vote<span class="sr-only"></span></a>
+                    <a class="nav-link" href="{{ route('createVote') }}">Create Vote<span class="sr-only"></span></a>
                 </li>
                 
                 <li class="nav-item dropdown navbar-toggler-right">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

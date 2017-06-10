@@ -10,7 +10,7 @@
             @if(isset($votes) && count($votes) > 0)
             	<div class="list-group">
             	@foreach($votes as $vote)
-                    <a href="vote/{{$vote->id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <a href="{{ route('viewVote', ['id' => $vote->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{$vote->title}}</h5>
                             <small>{{$vote->created_at}}</small>
@@ -19,7 +19,7 @@
                     </a>
                     @if(auth()->user()->id == $vote->user_id)
                         <div class="row" style='margin-left:0;'>
-                            <a href="/vote/{{$vote->id}}/rename" class="btn btn-warning col-md-2">Edit</a>
+                            <a href="{{ route('voteRename', ['id' => $vote->id]) }}" class="btn btn-warning col-md-2">Edit</a>
                             <a href="#" class="btn btn-danger col-md-2" onclick="onConfirm({{$vote->id}});">Delete</a>
                         </div>
                         
@@ -55,7 +55,7 @@
             'Your vote has been deleted.',
             'success'
           );
-          window.location.href = "/vote/"+id+"/delete";
+          window.location.href = "{{ route('voteDelete') }}/"+id+"/delete";
         })
     }
 </script>

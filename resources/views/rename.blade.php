@@ -7,7 +7,7 @@
         <div class="col-md-8 offset-md-2">
             <h1>Edit Question:</h1>
             @include('inc.msg')
-            <form action="/vote/updaterename/{{$vote->id}}" method="POST">
+            <form action="{{route('updateRename', ['id' => $vote->id])}}" method="POST">
                 <!-- TEST SECTION -->
                 @if(count($vote) > 0)
                     <section class="question" id="section">

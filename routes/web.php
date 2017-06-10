@@ -14,24 +14,27 @@
 
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@dashboard');
-Route::get('/', 'DashboardController@dashboard');
-Route::get('/votelist', 'DashboardController@voteList');
+Route::get('/dashboard', ['uses' => 'DashboardController@dashboard', 'as' => 'dashboard']);
+Route::get('/', ['uses' => 'DashboardController@dashboard', 'as' => 'dashboard']);
+Route::get('/votelist', ['uses' => 'DashboardController@voteList', 'as' => 'votelist']);
 
-Route::get('/createvote', 'PostController@createVote');
-Route::post('/createvote', 'PostController@postCreateVote');
+Route::get('/createvote', ['uses' =>'PostController@createVote', 'as' => 'createVote']);
+Route::post('/createvote', ['uses' => 'PostController@postCreateVote', 'as' => 'postCreatePost']);
 
-Route::get('/vote/{id}', 'DashboardController@viewVote');
-Route::get('/vote/{id}/edit', 'PostController@editVote');
-Route::get('/vote/{id}/stats', 'DashboardController@viewStatsVote');
-Route::post('/updatevote/{id}', 'PostController@updateVote');
-Route::get('/vote/{id}/rename', 'PostController@renameVote');
-Route::post('/vote/updaterename/{id}', 'PostController@postRenameVote');
-Route::get('/vote/{id}/delete', 'PostController@deleteVote');
+Route::get('/vote/{id}', ['uses' => 'DashboardController@viewVote', 'as' => 'viewVote']);
+Route::get('/vote/{id}/edit', ['uses' => 'PostController@editVote' , 'as' => 'voteEdit']);
+Route::get('/vote/{id}/stats', ['uses' => 'DashboardController@viewStatsVote', 'as' => 'voteStats']);
+Route::post('/updatevote/{id}', ['uses' => 'PostController@updateVote', 'as' => 'updateVote']);
+Route::get('/vote/{id}/rename', ['uses' => 'PostController@renameVote', 'as' => 'voteRename']);
+Route::post('/vote/updaterename/{id}', ['uses' => 'PostController@postRenameVote', 'as' => 'updateRename']);
 
-Route::get('/activate/{id}', 'PostController@activate');
+Route::get('/vote', ['uses' =>'PostController@deleteVote', 'as' => 'voteDelete']);
+Route::get('/vote/{id}/delete', ['uses' =>'PostController@deleteVote', 'as' => 'voteIdDelete']);
 
-Route::get('/deletesvote/{id}', 'PostController@deleteSVote');
+Route::get('/activate/{id}', ['uses' => 'PostController@activate', 'as' => 'activate']);
 
-Route::post('/makechoise', 'PostController@makeChoise');
-Route::post('/revote', 'PostController@reVote');
+Route::get('/deletesvote', ['uses' => 'PostController@deleteSVote', 'as' => 'voteSDelete']);
+Route::get('/deletesvote/{id}', ['uses' => 'PostController@deleteSVote', 'as' => 'voteIdDelete']);
+
+Route::post('/makechoise', ['uses' => 'PostController@makeChoise', 'as' => 'makeChoice']);
+Route::post('/revote', ['uses' => 'PostController@reVote', 'as' => 'revote']);

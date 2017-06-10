@@ -7,7 +7,7 @@
         <div class="col-md-8 offset-md-2">
             <h1>Edit Question:</h1>
             @include('inc.msg')
-            <form action="/updatevote/{{$svote->id}}" method="POST">
+            <form action="{{route('updateVote', ['id' => $svote->id])}}" method="POST">
                 <!-- TEST SECTION -->
                 @if(count($svote) > 0)
                     <section class="question" id="section">
@@ -52,7 +52,7 @@
                     <hr>    
                 @endif
                 <!-- END TEST SECTION -->
-                <a href="/vote/{{$voteid}}" class='btn btn-outline-primary'>Back</a>
+                <a href="{{ route('viewVote', ['id' => $voteid]) }}" class='btn btn-outline-primary'>Back</a>
                 <button type="submit" class="btn btn-outline-primary">Update</button>
                 <a href="#" class='btn btn-danger' onclick="onConfirm({{$svote->id}});">Delete</a>
 				{{ csrf_field() }}
@@ -120,7 +120,7 @@
                 'Your vote has been deleted.',
                 'success'
                 );
-                window.location.href = "/deletesvote/"+id;
+                window.location.href = "{{ route('voteSDelete') }}/"+id;
             })
         }
     </script>

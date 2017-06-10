@@ -9,7 +9,7 @@
         <div class="col-md-8 offset-md-2">
             <h1>Create Vote:</h1>
             @include('inc.msg')
-            <form action="/createvote" method="POST">
+            <form action="{{route('postCreatePost')}}" method="POST">
 				<div class="form-group row">
 					<label class="col-2 col-form-label">Title:</label>
 					<input type="text" class="form-control col-10" id="vote_title" name="vote_title" placeholder="Vote Title">
