@@ -53,11 +53,13 @@ class SVote extends Model
             }
         }else{
             $votedUsers = $this->countVotedUsers();
-            foreach($items as $item){
-                $itemvotes = $item->choices()->get()->count();
-                $t_stats[] = round($itemvotes / $votedUsers * 100 , 0);
+            if($votedUsers != 0){
+                foreach($items as $item){
+                    $itemvotes = $item->choices()->get()->count();
+                    $t_stats[] = round($itemvotes / $votedUsers * 100 , 0);
+                }
             }
-            return $t_stats;
+
         }
         
     	
