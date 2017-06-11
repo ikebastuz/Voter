@@ -13,10 +13,15 @@ class PostController extends Controller
 {
     
     public function createVote(){
+    	if(!Auth::check()){
+        	return redirect('/')->with('alert-message', 'Unauthorized page');
+        }
+
         return view('createvote');
     }
 
     public function postCreateVote(Request $request){
+
         $this->validate($request, [
             'vote_title' => 'required|max:120'
         ]);
@@ -92,7 +97,7 @@ class PostController extends Controller
         $svote = SVote::find($id);
 
         if($user_id == $svote->vote()->first()->user()->first()->id){       
-            $itemlist = $svote->item()->get();        
+            $itemlist = $svote->item()->orderBy('id')->get();        
             return view('edit', ['svote' => $svote, 'items' => $itemlist, 'voteid' => $svote->vote()->first()->id]);            
         }else{
             return redirect('/dashboard')->with('alert-message', 'Unauthorized page');
@@ -114,35 +119,44 @@ class PostController extends Controller
             $svote->type = $request['question_type'];
             $svote->update();
 
-            $items = $svote->item()->get();
+            $items = $svote->item()->orderBy('id')->get();
 
-            /* Checking if any items were removed */
-            foreach($items as $item){
-                $exists = false;
-                foreach($request['option'] as $k=>$v){
-                    if($item->title == $v){
-                        $exists = true;
-                    }
-                }
-                if(!$exists){
-                    /* Deleting all connected choices */
+            if($request['question_type'] != 3){
+            	/* Checking if any items were removed */
+	            foreach($items as $item){
+	                $exists = false;
+	                foreach($request['option'] as $k=>$v){
+	                    if($item->title == $v){
+	                        $exists = true;
+	                    }
+	                }
+	                if(!$exists){
+	                    /* Deleting all connected choices */
+	                    $item->deleteChoices();
+	                    /* Deleting item */
+	                    $item->delete();
+	                }
+	            }
+
+	            /* Checking if any items were added */
+	            foreach($request['option'] as $k=>$v){
+	                $item = VoteItem::where([['s_vote_id', '=', $svote->id], ['title', '=', $v]])->first();
+	                if(!$item){
+	                    if(is_null($v))continue;
+	                    $item = new VoteItem();
+	                    $item->title = $v;
+	                    $item->s_vote_id = $svote->id;
+	                    $item->save();
+	                }
+	            }
+            }else{
+            	/* If question type is text-input - remove all options */
+            	foreach($items as $item){
                     $item->deleteChoices();
-                    /* Deleting item */
                     $item->delete();
-                }
+            	}
             }
-
-            /* Checking if any items were added */
-            foreach($request['option'] as $k=>$v){
-                $item = VoteItem::where([['s_vote_id', '=', $svote->id], ['title', '=', $v]])->first();
-                if(!$item){
-                    if(is_null($v))continue;
-                    $item = new VoteItem();
-                    $item->title = $v;
-                    $item->s_vote_id = $svote->id;
-                    $item->save();
-                }
-            }
+            
 
             return redirect('/vote/'.$svote->vote()->first()->id)->with('success-message', 'Vote updated successfully');            
         }else{
@@ -191,7 +205,7 @@ class PostController extends Controller
         if($user_id == $vote->user_id){
             $svotes = $vote->s_vote()->get();
             foreach($svotes as $svote){
-                $items = $svote->item()->get();
+                $items = $svote->item()->orderBy('id')->get();
                 foreach($items as $item){
                     $item->deleteChoices();
                     $item->delete();
@@ -257,7 +271,7 @@ class PostController extends Controller
         $vote_s = SVote::find($request['revote_id']);
         $vote_id = $vote_s->vote()->first()->id;
 
-        $items = $vote_s->item()->get();
+        $items = $vote_s->item()->orderBy('id')->get();
         foreach($items as $item){
             $user->choices()->detach($item);
             if($vote_s->type == 3 && $item->countVotes() == 0){

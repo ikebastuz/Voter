@@ -30,7 +30,7 @@ class DashboardController extends Controller
     public function viewVote($id){
         $user = auth()->user();
         $vote = Votes::find($id);
-        $svote = $vote->s_vote()->get();
+        $svote = $vote->s_vote()->orderBy('id')->get();
         $itemlist = array();
         $voted = array();
         $stats = array();
@@ -61,7 +61,7 @@ class DashboardController extends Controller
             }
             $voted[$k] = true;
             $stats[$k] = $svote[$k]->stats();
-            $items = $svote[$k]->item()->get();
+            $items = $svote[$k]->item()->orderBy('id')->get();
             $itemlist[$k] = $items;
         }
         return view('vote', ['vote' => $vote, 'svote' => $svote, 'items' => $itemlist, 'voted' => $voted, 'stats' => $stats, 'norevote' => $norevote]);

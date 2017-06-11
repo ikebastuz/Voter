@@ -4,3 +4,8 @@ h1, h3{
 .fl{
 	width:100%;
 }
+
+.vote_header{
+	border-left: 3px solid red;
+	padding-left: 10px;
+}

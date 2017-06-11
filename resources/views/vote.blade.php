@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
                 <div id="test">
-                   
+
                 </div>
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -22,8 +22,8 @@
                             <section class="question">
                                 <form action="{{route('makeChoice')}}" method="POST">
                                     <h3>{{$svotei->title}} <?php echo $svotei->active==0?'(Vote closed)': ''; ?></h3>
-                                    <div class="form-group row">
-                                        <span type="text" class="col-6 offset-md-3 badge badge-pill badge-default" id="question_help_text" name="question_help_text" placeholder="Description">{{$svotei->description}}</span>
+                                    <div class="form-group">
+                                        <span type="text" class="col-6 offset-3 badge badge-pill badge-default" id="question_help_text" name="question_help_text" placeholder="Description">{{$svotei->description}}</span>
                                     </div>
                                     <h5>Options:</h5>
                                     <!-- Building vote depending on select type -->
@@ -56,7 +56,7 @@
                                     @elseif($svotei->type == 3) <!-- Input choise -->
                                         <div class="form-group">
                                             <label for="answer">Answer:</label>
-                                            <input type="text" class="form-control" id="answer" aria-describedby="answer" placeholder="Input your answer" name="personal" <?php echo $svotei->active==0?'disabled': ''; ?>>
+                                            <input type="text" class="form-control" id="answer" aria-describedby="answer" placeholder="Input your answer" name="personal" <?php echo $svotei->active==0?'disabled': ''; ?> maxlength="100">
                                         </div>
                                         <button class="btn btn-outline-primary" type="submit" <?php echo $svotei->active==0?'disabled': ''; ?>>Submit</button>
                                         <input type="hidden" name="votetype" value="3">
@@ -72,7 +72,7 @@
                                 <form action="{{route('revote')}}" method="POST">
                                     <h3>{{$svotei->title}} <?php echo $svotei->active==0?'(Vote closed)': ''; ?> </h3>
                                     <div class="form-group row">
-                                        <span type="text" class="col-6 offset-md-3 badge badge-pill badge-default" id="question_help_text" name="question_help_text" placeholder="Description">{{$svotei->description}}</span>
+                                        <span type="text" class="col-6 offset-3 badge badge-pill badge-default" id="question_help_text" name="question_help_text" placeholder="Description">{{$svotei->description}}</span>
                                     </div>
                                     @foreach($items[$k] as $i=>$j)
                                         @if($stats[$k] == null or sizeof($items[$k]) == 0)

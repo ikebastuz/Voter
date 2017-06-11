@@ -11,14 +11,14 @@
                 <!-- TEST SECTION -->
                 @if(count($vote) > 0)
                     <section class="question" id="section">
-                        <div class="form-group row">
-                            <label class="col-2 col-form-label">Title:</label>
-                            <input type="text" class="form-control col-10" id="vote_title" name="vote_title" placeholder="Vote Title" value="{{$vote->title}}">
+                        <div class="form-group">
+                            <label>Title:</label>
+                            <input type="text" class="form-control" id="vote_title" name="vote_title" placeholder="Vote Title" value="{{$vote->title}}">
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-2 col-form-label">Description:</label>
-                            <textarea type="text" class="form-control col-10" id="vote_desc" name="vote_desc" placeholder="Description">{{$vote->description}}</textarea>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea type="text" class="form-control" id="vote_desc" name="vote_desc" placeholder="Description">{{$vote->description}}</textarea>
                         </div>
                     </section>
                     <hr>    

@@ -11,19 +11,19 @@
                 <!-- TEST SECTION -->
                 @if(count($svote) > 0)
                     <section class="question" id="section">
-                        <div class="form-group row">
-                            <label class="col-2 col-form-label">Question:</label>
-                            <input type="text" class="form-control col-10" id="question_title" name="question_title" placeholder="Question Title" value="{{$svote->title}}">
+                        <div class="form-group">
+                            <label>Question:</label>
+                            <input type="text" class="form-control" id="question_title" name="question_title" placeholder="Question Title" value="{{$svote->title}}">
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-2 col-form-label">Help Text:</label>
-                            <input type="text" class="form-control col-10" id="question_help_text" name="question_help_text" placeholder="Description" value="{{$svote->description}}">
+                        <div class="form-group">
+                            <label>Help Text:</label>
+                            <input type="text" class="form-control" id="question_help_text" name="question_help_text" placeholder="Description" value="{{$svote->description}}">
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-2 col-form-label">Question type:</label>
-                            <select id='opType' class="form-control col-10 question_type" name="question_type" onChange="opChange(this);">
+                        <div class="form-group">
+                            <label>Question type:</label>
+                            <select id='opType' class="form-control question_type" name="question_type" onChange="opChange(this);">
                                 <option value="1" {{$svote->type==1?'selected':''}}>One answer</option>
                                 <option value="2" {{$svote->type==2?'selected':''}}>Multiple answers</option>
                                 <option value="3" {{$svote->type==3?'selected':''}}>Short answer</option>
@@ -34,10 +34,10 @@
                             <h5>Options:</h5>
                             @if($svote->type == 1 || $svote->type == 2)
                                 @foreach($items as $i=>$j)
-                                    <div class="form-group row opt">
+                                    <div class="form-group row opt" style="margin-left:0;margin-right:0;">
                                     @if($j->s_vote_id == $svote->id)
-                                        <input type="text" class="form-control col-10" id="option[]" name="option[]" placeholder="Option" value="{{$j->title}}">
-                                        <button class='btn btn-outline-danger removeOption col-2' onClick="return false;">Remove</button>
+                                        <input type="text" class="form-control col-9" id="option[]" name="option[]" placeholder="Option" value="{{$j->title}}">
+                                        <button class='btn btn-outline-danger removeOption col-3' onClick="return false;">Remove</button>
                                     @endif
                                     </div>
                                 @endforeach
@@ -46,7 +46,7 @@
                                 
                             @endif
                         </section>
-                        <button id="addOption" class="btn btn-outline-primary col-2 addOption" onClick='return false'>Add Option</button>
+                        <button id="addOption" class="btn btn-outline-primary addOption" onClick='return false'>Add Option</button>
                     </section>
                     
                     <hr>    
@@ -69,13 +69,17 @@
 
         $(document).on("click",".removeOption", function (e) {
             e.preventdefault;
-            $(this).parent().remove();
+            var cnt = $(this).parent().parent().children('.opt').length;
+            console.log(cnt);
+            if(cnt > 1){
+                $(this).parent().remove();    
+            }            
         });
 
         $(document).on("click",".addOption", function (e) {
             console.log($(this).parent());
             e.preventDefault();
-            $('#options').append("<div class='form-group row opt'><input type='text' class='form-control col-10' id='option[]' name='option[]' placeholder='Option'><button class='btn btn-outline-danger col-2 removeOption' onClick='return false'>Remove</button></div>");
+            $('#options').append("<div class='form-group row opt' style='margin-left:0;margin-right:0;'><input type='text' class='form-control col-9' id='option[]' name='option[]' placeholder='Option'><button class='btn btn-outline-danger col-3 removeOption' onClick='return false'>Remove</button></div>");
         });
 
 
@@ -96,8 +100,8 @@
                 console.log($(e).parent().parent());
                 $("#options").remove();
                 $("#addOption").remove();
-                $(e).parent().parent().append("<section id='options'><div class='form-group row opt'><input type='text' class='form-control col-10' id='option[]' name='option[]' placeholder='Option'><button class='btn btn-outline-default col-2' onClick='return false'>Default</button></section>");
-                $(e).parent().parent().after("<button id='addOption' class='btn btn-outline-primary col-2 addOption' onClick='return false'>Add Option</button>");
+                $(e).parent().parent().append("<section id='options'><div class='form-group row opt' style='margin-left:0;margin-right:0;'><input type='text' class='form-control col-9' id='option[]' name='option[]' placeholder='Option'><button class='btn btn-outline-default col-3' onClick='return false'>Default</button></section>");
+                $(e).parent().parent().after("<button id='addOption' class='btn btn-outline-primary addOption' onClick='return false'>Add Option</button>");
                 
             }
 

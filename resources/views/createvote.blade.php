@@ -10,30 +10,33 @@
             <h1>Create Vote:</h1>
             @include('inc.msg')
             <form action="{{route('postCreatePost')}}" method="POST">
-				<div class="form-group row">
-					<label class="col-2 col-form-label">Title:</label>
-					<input type="text" class="form-control col-10" id="vote_title" name="vote_title" placeholder="Vote Title">
-				</div>
+                <div class="vote_header">
+                    <div class="form-group">
+                        <label>Title:</label>
+                        <input type="text" class="form-control" id="vote_title" name="vote_title" placeholder="Vote Title" value="{{ old('vote_title') }}">
+                    </div>
 
-                <div class="form-group row">
-                    <label class="col-2 col-form-label">Description:</label>
-                    <textarea type="text" class="form-control col-10" id="vote_desc" name="vote_desc" placeholder="Description"></textarea>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea type="text" class="form-control" id="vote_desc" name="vote_desc" placeholder="Description">{{ old('vote_desc') }}</textarea>
+                    </div>
                 </div>
+				
                 <hr>
                 
                 <section class="question">
                     <h3>Question:</h3>
-                    <div class="form-group row">
-                        <label class="col-2 col-form-label">Question:</label>
-                        <input type="text" class="form-control col-10" id="question_title" name="question_title1" placeholder="Question Title">
+                    <div class="form-group">
+                        <label>Question:</label>
+                        <input type="text" class="form-control" id="question_title" name="question_title1" placeholder="Question Title" value="{{ old('question_title1') }}">
                     </div>
-                    <div class="form-group row">
-                        <label class="col-2 col-form-label">Help Text:</label>
-                        <input type="text" class="form-control col-10" id="question_help_text" name="question_help_text1" placeholder="Description">
+                    <div class="form-group">
+                        <label>Help Text:</label>
+                        <input type="text" class="form-control" id="question_help_text" name="question_help_text1" placeholder="Description" value="{{ old('question_help_text1') }}">
                     </div>
-                    <div class="form-group row">
-                        <label class="col-2 col-form-label">Question type:</label>
-                        <select class="form-control col-10 question_type" name="question_type1" onChange="opChange(this);">
+                    <div class="form-group">
+                        <label>Question type:</label>
+                        <select class="form-control question_type" name="question_type1" onChange="opChange(this);">
                             <option value="1">One answer</option>
                             <option value="2">Multiple answers</option>
                             <option value="3">Short answer</option>
@@ -41,14 +44,14 @@
                     </div>
                     <h5>Options:</h5>
                     <section class='options'>
-                        <div class="form-group row">
-                            <input type="text" class="form-control col-10 opt" id="option1[]" name="option1[]" placeholder="Option">
-                            <button class='btn btn-outline-default col-2' onClick='return false'>Default</button>
+                        <div class="form-group row" style="margin-left:0;margin-right:0;">
+                            <input type="text" class="form-control col-9 opt" id="option1[]" name="option1[]" placeholder="Option">
+                            <button class='btn btn-outline-default col-3' onClick='return false'>Default</button>
                         </div>
                     </section>
-                    <button class="btn btn-outline-primary col-2 addOption" onClick='return false'>Add Option</button>
+                    <button class="btn btn-outline-primary addOption" onClick='return false'>Add Option</button>
                     <br><br>
-                    <button class="btn btn-outline-warning col-2 cloneQuestion" onClick='return false'>Clone</button>
+                    <button class="btn btn-outline-warning cloneQuestion" onClick='return false'>Clone</button>
                 </section>
                 <hr>
                 
@@ -107,7 +110,7 @@
             e.preventDefault();
             var id = $(this).parent().children('.options').children('.row').children('input').attr('name').substring(6,7);
             console.log(id);
-            $(this).parent().children('.options').append("<div class='form-group row'><input type='text' class='form-control col-10 opt' id='option"+id+"[]' name='option"+id+"[]' placeholder='Option'><button class='btn btn-outline-danger col-2 removeOption' onClick='return false'>Remove</button></div>");
+            $(this).parent().children('.options').append("<div class='form-group row' style='margin-left:0;margin-right:0;'><input type='text' class='form-control col-9 opt' id='option"+id+"[]' name='option"+id+"[]' placeholder='Option'><button class='btn btn-outline-danger col-3 removeOption' onClick='return false'>Remove</button></div>");
         });
 
 
@@ -122,8 +125,8 @@
             if(option == 3){
                 
             }else{
-                $(e).parent().parent().children('.options').append("<div class='form-group row'><input type='text' class='form-control col-10 opt' id='option"+sections+"[]' name='option"+sections+"[]' placeholder='Option'><button class='btn btn-outline-default col-2' onClick='return false'>Default</button>");
-                $(e).parent().parent().children('.options').after("<button class='btn btn-outline-primary col-2 addOption' onClick='return false'>Add Option</button>");
+                $(e).parent().parent().children('.options').append("<div class='form-group row' style='margin-left:0;margin-right:0;'><input type='text' class='form-control col-9 opt' id='option"+sections+"[]' name='option"+sections+"[]' placeholder='Option'><button class='btn btn-outline-default col-3' onClick='return false'>Default</button>");
+                $(e).parent().parent().children('.options').after("<button class='btn btn-outline-primary addOption' onClick='return false'>Add Option</button>");
             }
         }
        
