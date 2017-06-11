@@ -28,7 +28,8 @@
             	@endforeach
             	</div>
             @else
-            	<p>You don't have your own votes yet!</p>
+            	<p>No votes here yet =(</p>
+              <a href="{{ route('createVote')}}" class="btn btn-success">Create First Vote</a>
             @endif
             
         </div>
