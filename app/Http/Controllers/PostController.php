@@ -247,11 +247,17 @@ class PostController extends Controller
             $item = VoteItem::find($request['option_value']);
             $user->choices()->attach($item);
         }else if($request['votetype'] == 2){
+            if(!isset($request['check_option'])){
+                return redirect()->back()->with('alert-message', 'You have to select at least something!');
+            }
             foreach($request['check_option'] as $k=>$v){
                 $item = VoteItem::find($v);
                 $user->choices()->attach($item);
             }
         }else if($request['votetype'] == 3){
+            if($request['personal'] == ''){
+                return redirect()->back()->with('alert-message', 'You have to input at least something!');
+            }
             $item = VoteItem::where('title', '=', $request['personal'])->first();
             if($item === null){
                 $item = new VoteItem();

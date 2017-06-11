@@ -15,7 +15,7 @@
                             <label for="name" class="col-md-4 offset-md-3 control-label">Name</label>
 
                             <div class="col-md-6 offset-md-3">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus maxlength="30">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">

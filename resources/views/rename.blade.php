@@ -13,12 +13,12 @@
                     <section class="question" id="section">
                         <div class="form-group">
                             <label>Title:</label>
-                            <input type="text" class="form-control" id="vote_title" name="vote_title" placeholder="Vote Title" value="{{$vote->title}}">
+                            <input type="text" class="form-control" id="vote_title" name="vote_title" placeholder="Vote Title" value="{{$vote->title}}" maxlength="70">
                         </div>
 
                         <div class="form-group">
                             <label>Description:</label>
-                            <textarea type="text" class="form-control" id="vote_desc" name="vote_desc" placeholder="Description">{{$vote->description}}</textarea>
+                            <textarea type="text" class="form-control" id="vote_desc" name="vote_desc" placeholder="Description" maxlength="70">{{$vote->description}}</textarea>
                         </div>
                     </section>
                     <hr>    

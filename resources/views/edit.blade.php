@@ -13,12 +13,12 @@
                     <section class="question" id="section">
                         <div class="form-group">
                             <label>Question:</label>
-                            <input type="text" class="form-control" id="question_title" name="question_title" placeholder="Question Title" value="{{$svote->title}}">
+                            <input type="text" class="form-control" id="question_title" name="question_title" placeholder="Question Title" value="{{$svote->title}}" maxlength="70">
                         </div>
 
                         <div class="form-group">
                             <label>Help Text:</label>
-                            <input type="text" class="form-control" id="question_help_text" name="question_help_text" placeholder="Description" value="{{$svote->description}}">
+                            <input type="text" class="form-control" id="question_help_text" name="question_help_text" placeholder="Description" value="{{$svote->description}}" maxlength="70">
                         </div>
 
                         <div class="form-group">
@@ -36,7 +36,7 @@
                                 @foreach($items as $i=>$j)
                                     <div class="form-group row opt" style="margin-left:0;margin-right:0;">
                                     @if($j->s_vote_id == $svote->id)
-                                        <input type="text" class="form-control col-9" id="option[]" name="option[]" placeholder="Option" value="{{$j->title}}">
+                                        <input type="text" class="form-control col-9" id="option[]" name="option[]" placeholder="Option" value="{{$j->title}}" maxlength="70">
                                         <button class='btn btn-outline-danger removeOption col-3' onClick="return false;">Remove</button>
                                     @endif
                                     </div>
@@ -79,7 +79,7 @@
         $(document).on("click",".addOption", function (e) {
             console.log($(this).parent());
             e.preventDefault();
-            $('#options').append("<div class='form-group row opt' style='margin-left:0;margin-right:0;'><input type='text' class='form-control col-9' id='option[]' name='option[]' placeholder='Option'><button class='btn btn-outline-danger col-3 removeOption' onClick='return false'>Remove</button></div>");
+            $('#options').append("<div class='form-group row opt' style='margin-left:0;margin-right:0;'><input type='text' class='form-control col-9' id='option[]' name='option[]' placeholder='Option' maxlength='70'><button class='btn btn-outline-danger col-3 removeOption' onClick='return false'>Remove</button></div>");
         });
 
 
@@ -100,7 +100,7 @@
                 console.log($(e).parent().parent());
                 $("#options").remove();
                 $("#addOption").remove();
-                $(e).parent().parent().append("<section id='options'><div class='form-group row opt' style='margin-left:0;margin-right:0;'><input type='text' class='form-control col-9' id='option[]' name='option[]' placeholder='Option'><button class='btn btn-outline-default col-3' onClick='return false'>Default</button></section>");
+                $(e).parent().parent().append("<section id='options'><div class='form-group row opt' style='margin-left:0;margin-right:0;'><input type='text' class='form-control col-9' id='option[]' name='option[]' placeholder='Option' maxlength='70'><button class='btn btn-outline-default col-3' onClick='return false'>Default</button></section>");
                 $(e).parent().parent().after("<button id='addOption' class='btn btn-outline-primary addOption' onClick='return false'>Add Option</button>");
                 
             }

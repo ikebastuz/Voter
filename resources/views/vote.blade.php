@@ -116,7 +116,9 @@
             @endif
             <hr>
             @if(auth()->user()->id == $vote->user_id)
-                <a href="{{ route('voteStats', ['id' => $vote->id]) }}" class="btn btn-primary">View Stats</a>
+                @if(count($svote) > 0)
+                    <a href="{{ route('voteStats', ['id' => $vote->id]) }}" class="btn btn-primary">View Stats</a>
+                @endif
             @endif
 
             
